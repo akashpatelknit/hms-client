@@ -1,23 +1,24 @@
 import client from '@/conf/config';
-import conf from '@/conf/config';
-import { Account, ID, Databases, Query } from 'appwrite';
+import { Databases, Query } from 'appwrite';
 
 export const database = new Databases(client);
-
 export class AppwriteUserService {
 	//create a new record of user inside appwrite
 	async getUser(id) {
+		console.log('id', id);
 		try {
-			const userAccount = await database
-				.listDocuments(
-					process.env.HMSDB,
-					process.env.HMS_USER_COLLECTION
-				)
-				.then((data) => {
-					return data.documents.filter(
-						(user) => user.userId === id
-					)[0];
-				});
+			const userAccount = await database.listDocuments(
+				process.env.NEXT_PUBLIC_HMSDB,
+				process.env.NEXT_PUBLIC_HMS_USER_COLLECTION,
+				[Query.equal('userId', id)]
+			);
+			console.log('userAccount', userAccount);
+			const data = userAccount.documents.filter(
+				(user) => user.userId === id
+			);
+			console.log('data', data);
+			return data[0];
+
 			return userAccount;
 		} catch (error) {
 			console.log('error', error);
