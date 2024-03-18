@@ -1,4 +1,5 @@
 import { Github, Instagram, Linkedin, Twitter } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 
 const Team = () => {
@@ -19,7 +20,8 @@ const Team = () => {
 
 								<p class="text-gray-700 text-lg font-light">
 									With over 100 years of combined experience,
-									we have got a well-seasoned team at the helm.
+									we have got a well-seasoned team at the
+									helm.
 								</p>
 							</div>
 						</div>
@@ -27,9 +29,10 @@ const Team = () => {
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
 									<a href="#" class="mx-auto">
-										<img
+										<Image
 											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
+											fill
 										/>
 									</a>
 
@@ -76,9 +79,10 @@ const Team = () => {
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
 									<a href="#" class="mx-auto">
-										<img
+										<Image
 											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
+											fill
 										/>
 									</a>
 
@@ -125,9 +129,10 @@ const Team = () => {
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
 									<a href="#" class="mx-auto">
-										<img
+										<Image
 											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
+											fill
 										/>
 									</a>
 
@@ -174,9 +179,10 @@ const Team = () => {
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
 									<a href="#" class="mx-auto">
-										<img
+										<Image
 											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
+											fill
 										/>
 									</a>
 

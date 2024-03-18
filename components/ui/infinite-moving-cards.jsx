@@ -15,10 +15,6 @@ const InfiniteMovingCards = ({
 	const scrollerRef = useRef(null);
 	const [start, setStart] = useState(false);
 
-	useEffect(() => {
-		addAnimation();
-	}, [addAnimation]);
-
 	const addAnimation = () => {
 		if (containerRef.current && scrollerRef.current) {
 			const scrollerContent = Array.from(scrollerRef.current.children);
@@ -35,6 +31,9 @@ const InfiniteMovingCards = ({
 			setStart(true);
 		}
 	};
+	useEffect(() => {
+		addAnimation();
+	}, []);
 
 	const getDirection = () => {
 		if (containerRef.current) {

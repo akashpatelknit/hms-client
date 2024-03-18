@@ -35,10 +35,12 @@ export function CarouselPlugin() {
 							</div>
 						</div>
 						<div className="mt-12 md:mt-0 flex items-end justify-end">
-							<img
+							<Image
 								src="/about.png"
 								alt="About Us Image"
 								class="object-cover "
+								width={500}
+								height={500}
 							/>
 						</div>
 					</div>

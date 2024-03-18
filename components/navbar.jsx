@@ -51,7 +51,10 @@ export default function Navbar() {
 								<div className="hidden sm:ml-6 sm:block">
 									<div className="flex space-x-4">
 										{navigation.map((item) => (
-											<Link href={item.href}>
+											<Link
+												href={item.href}
+												key={item.name}
+											>
 												{item.name}
 											</Link>
 										))}
