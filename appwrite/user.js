@@ -9,8 +9,7 @@ export class AppwriteUserService {
 		try {
 			const userAccount = await database.listDocuments(
 				process.env.NEXT_PUBLIC_HMSDB,
-				process.env.NEXT_PUBLIC_HMS_USER_COLLECTION,
-				[Query.equal('userId', id)]
+				process.env.NEXT_PUBLIC_HMS_USER_COLLECTION
 			);
 			console.log('userAccount', userAccount);
 			const data = userAccount.documents.filter(
@@ -30,8 +29,8 @@ export class AppwriteUserService {
 		try {
 			const response = await database
 				.updateDocument(
-					process.env.HMSDB,
-					process.env.HMS_USER_COLLECTION,
+					process.env.NEXT_PUBLIC_HMSDB,
+					process.env.NEXT_PUBLIC_HMS_USER_COLLECTION,
 					id,
 					data
 				)

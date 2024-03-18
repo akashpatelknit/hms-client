@@ -4,7 +4,7 @@ import { File } from 'lucide-react';
 
 const textColor = 'gray.700';
 
-const NotificationCard = () => {
+const NotificationCard = ({ data }) => {
 	return (
 		<Card className="flex items-center justify-center hover:bg-gray-100 cursor-pointer">
 			<CardContent className=" flex items-center justify-center gap-3 p-2">

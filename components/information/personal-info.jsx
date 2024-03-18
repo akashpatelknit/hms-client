@@ -10,23 +10,18 @@ const PersonalInfo = ({ user }) => {
 			<div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
 				<Card className="flex items-center gap-3 p-2 ">
 					<h1 className=" text-gray-500"> Name : </h1>
-					<p className="">{user?.fullname}</p>
+					<p className="">
+						{user?.firstName} {user?.lastName}
+					</p>
+				</Card>
+
+				<Card className="flex items-center gap-3 p-2 ">
+					<h1 className=" text-gray-500"> Phone Number : </h1>
+					<p className="">{user?.phoneNumbers[0]?.phoneNumber}</p>
 				</Card>
 				<Card className="flex items-center gap-3 p-2 ">
 					<h1 className=" text-gray-500"> Email : </h1>
-					<p className=" ">{user?.email}</p>
-				</Card>
-				<Card className="flex items-center gap-3 p-2 ">
-					<h1 className=" text-gray-500"> DOB : </h1>
-					<p className="">{user?.dob}</p>
-				</Card>
-				<Card className="flex items-center gap-3 p-2 ">
-					<h1 className=" text-gray-500"> Hostel : </h1>
-					<p className="">Not Alloted</p>
-				</Card>
-				<Card className="flex items-center gap-3 p-2 ">
-					<h1 className=" text-gray-500"> Room Number : </h1>
-					<p className="">Not Alloted</p>
+					<p className=" ">{user?.emailAddresses[0]?.emailAddress}</p>
 				</Card>
 			</div>
 		</Card>
