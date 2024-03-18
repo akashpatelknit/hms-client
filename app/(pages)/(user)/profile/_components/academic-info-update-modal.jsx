@@ -25,7 +25,7 @@ export function DialogDemo() {
 					<DialogTitle>Edit Academics Info</DialogTitle>
 					<DialogDescription>
 						Make changes to your academics information here. Click
-						save when you're done.
+						save when you are done.
 					</DialogDescription>
 				</DialogHeader>
 				<div className="grid gap-4 py-4">
