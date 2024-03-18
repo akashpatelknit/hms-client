@@ -26,10 +26,10 @@ const Notification = () => {
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="grid gap-1">
-					{notification.map((user) => (
+					{notification.map((user, index) => (
 						<div
 							className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground"
-							key={user?.login}
+							key={index}
 						>
 							<BellIcon className="h-10 w-10" />
 							<div className="space-y-1">

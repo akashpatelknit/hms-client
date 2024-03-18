@@ -61,10 +61,11 @@ export function DemoTeamMembers() {
 							</div>
 						</div>
 						<div className="mt-12 md:mt-0 flex items-end justify-end">
-							<img
+							<Image
 								src="/about.png"
 								alt="About Us Image"
-								class="object-cover "
+								className="object-cover "
+								fill="responsive"
 							/>
 						</div>
 					</div>
