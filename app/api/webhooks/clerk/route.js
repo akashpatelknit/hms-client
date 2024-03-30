@@ -72,18 +72,21 @@ export async function POST(req) {
 		};
 
 		console.log(user);
-		const newUser = await axios.post('http://localhost:3001/api/user', {
-			id: id,
-			eventType: eventType,
-			body: {
-				id,
-				email_addresses,
-				image_url,
-				first_name,
-				last_name,
-				username,
-			},
-		});
+		const newUser = await axios.post(
+			'https://check-red-two.vercel.app/api/user',
+			{
+				id: id,
+				eventType: eventType,
+				body: {
+					id,
+					email_addresses,
+					image_url,
+					first_name,
+					last_name,
+					username,
+				},
+			}
+		);
 
 		if (newUser) {
 			await clerkClient.users.updateUserMetadata(id, {
