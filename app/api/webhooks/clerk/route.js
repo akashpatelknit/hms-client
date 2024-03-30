@@ -70,7 +70,7 @@ export async function POST(req) {
 			firstName: first_name,
 			lastName: last_name,
 			photo: image_url,
-			phone: phone_numbers[0],
+			phone: phone_numbers[0].phone_number,
 		};
 
 		console.log(user);
