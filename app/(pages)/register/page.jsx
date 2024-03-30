@@ -23,7 +23,6 @@ export function LoginForm() {
 		console.log('formData', formData);
 		try {
 			const user = await axios.post('/api/auth/login', formData);
-			localStorage.setItem('user', JSON.stringify(user)
 			console.log(user);
 		} catch (error) {
 			console.log('Error', error.message);
