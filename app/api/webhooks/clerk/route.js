@@ -6,7 +6,7 @@ import { clerkClient } from '@clerk/nextjs';
 
 export async function POST(req) {
 	const WEBHOOK_SECRET = process.env.NEXT_PUBLIC_WEBHOOK_SECRET;
-
+	console.log('WEBHOOK_SECRET', WEBHOOK_SECRET);
 	if (!WEBHOOK_SECRET) {
 		throw new Error(
 			'Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local'
