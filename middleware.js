@@ -1,9 +1,21 @@
-import { authMiddleware } from '@clerk/nextjs';
+import { NextResponse } from 'next/server';
 
-export default authMiddleware({
-	publicRoutes: ['/api/:path*', '/api/webhooks/clerk'],
-});
+// This function can be marked `async` if using `await` inside
+export function middleware(request) {
+	const path = request.nextUrl.pathname;
+	// console.log('path', path);
+	const isPublicPath = path === '/login' || path === '/register';
+	const token = request.cookies.get('token')?.value || '';
+
+	if (isPublicPath && token) {
+		return NextResponse.redirect(new URL(`${path}`, request.nextUrl));
+	}
+
+	if (!isPublicPath && !token) {
+		return NextResponse.redirect(new URL('/login', request.nextUrl));
+	}
+}
 
 export const config = {
-	matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+	matcher: ['/', '/login', '/register', '/profile/:id'],
 };
