@@ -1,12 +1,16 @@
+'use client';
 import { Github, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Team = () => {
-	<link
-		rel="stylesheet"
-		href="https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css"
-	/>;
+	const router = useRouter();
+	console.log('Team', localStorage.getItem('check'));
+	if (localStorage.getItem('check') === 'akash') {
+		router.push('/register');
+	}
+
 	return (
 		<div class="flex items-center justify-center min-h-screen ">
 			<div class="flex flex-col">
@@ -28,11 +32,12 @@ const Team = () => {
 						<div class="flex flex-wrap">
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
-									<a href="#" class="mx-auto">
+									<a href="#" class="mx-auto relative">
 										<Image
-											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
+											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100 h-100 w-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
-											fill
+											height={200}
+											width={200}
 										/>
 									</a>
 
@@ -78,11 +83,12 @@ const Team = () => {
 							</div>
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
-									<a href="#" class="mx-auto">
+									<a href="#" class="mx-auto relative">
 										<Image
-											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
+											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100 h-100 w-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
-											fill
+											height={200}
+											width={200}
 										/>
 									</a>
 
@@ -128,11 +134,12 @@ const Team = () => {
 							</div>
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
-									<a href="#" class="mx-auto">
+									<a href="#" class="mx-auto relative">
 										<Image
-											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
+											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100 h-100 w-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
-											fill
+											height={200}
+											width={200}
 										/>
 									</a>
 
@@ -178,11 +185,12 @@ const Team = () => {
 							</div>
 							<div class="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
 								<div class="flex flex-col">
-									<a href="#" class="mx-auto">
+									<a href="#" class="mx-auto relative">
 										<Image
-											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100"
+											class="rounded-2xl drop-shadow-md hover:drop-shadow-xl transition-all duration-200 delay-100 h-100 w-100"
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
-											fill
+											height={200}
+											width={200}
 										/>
 									</a>
 

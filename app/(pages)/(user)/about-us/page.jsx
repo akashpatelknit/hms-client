@@ -65,7 +65,8 @@ export function DemoTeamMembers() {
 								src="/about.png"
 								alt="About Us Image"
 								className="object-cover "
-								fill="responsive"
+								height={500}
+								width={500}
 							/>
 						</div>
 					</div>

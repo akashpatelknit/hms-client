@@ -35,16 +35,18 @@ export default function Home() {
 				</Container>
 			</div>
 			<div className="my-20">
-				<div className=" my-10 max-w-7xl mx-auto ">
-					<h2 className="text-2xl font-semibold text-gray-900 sm:text-4xl ">
-						Your Convenient Hostel Allocation Platform
-					</h2>
-					<p className="mt-4 text-gray-600 text-md">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Sed quis eros at lacus feugiat hendrerit sed ut tortor.
-						Suspendisse
-					</p>
-				</div>
+				<Container>
+					<div className=" my-10 max-w-7xl mx-auto ">
+						<h2 className="text-2xl font-semibold text-gray-900 sm:text-4xl ">
+							Your Convenient Hostel Allocation Platform
+						</h2>
+						<p className="mt-4 text-gray-600 text-md">
+							Lorem ipsum dolor sit amet, consectetur adipiscing
+							elit. Sed quis eros at lacus feugiat hendrerit sed
+							ut tortor. Suspendisse
+						</p>
+					</div>
+				</Container>
 				<InfiniteMovingCardsDemo />
 			</div>
 		</div>

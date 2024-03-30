@@ -18,13 +18,13 @@ export default function Features() {
 			color: '#FFDF99',
 		},
 		{
-			title: 'User Profiles',
+			title: 'User Profile',
 			subtitle:
 				'Enables creation of personalized profiles for better communication.',
 			color: '#C5C5FC',
 		},
 		{
-			title: 'Real-Time Updates',
+			title: 'Library Table Booking',
 			subtitle:
 				'Provides instant notifications on room allotments and complaints.',
 			color: '##FFDF99',
@@ -33,11 +33,6 @@ export default function Features() {
 			title: 'Feedback Mechanism',
 			subtitle: 'Collects feedback from students to improve services.',
 			color: '#FFAEC0',
-		},
-		{
-			title: 'Mobile Compatibility',
-			subtitle: 'Accessible from any device for convenient management.',
-			color: '#C5C5FC',
 		},
 	];
 

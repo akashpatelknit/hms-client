@@ -7,8 +7,8 @@ const Footer = () => {
 		<>
 			<div>
 				<Separator />
-				<div className="flex flex-col mx-3 ">
-					<div className="w-full draggable">
+				<div className="flex flex-col  bg-[#FFF2EC]">
+					<div className="w-full draggable mx-3">
 						<div className="container flex flex-col mx-auto">
 							<div className="flex flex-col items-center w-full my-10">
 								<span className="mb-8">HMS</span>
