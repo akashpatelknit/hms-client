@@ -13,10 +13,13 @@ export const POST = async (NextRequest) => {
 			});
 		}
 
-		const data = await axios.post('http://localhost:3001/api/auth/login', {
-			email,
-			password,
-		});
+		const data = await axios.post(
+			`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+			{
+				email,
+				password,
+			}
+		);
 		console.log(data.data);
 
 		const tokenData = {
