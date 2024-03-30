@@ -60,6 +60,7 @@ export async function POST(req) {
 			first_name,
 			last_name,
 			username,
+			phone_numbers,
 		} = evt.data;
 
 		const user = {
@@ -69,11 +70,13 @@ export async function POST(req) {
 			firstName: first_name,
 			lastName: last_name,
 			photo: image_url,
+			phone: phone_numbers[0],
 		};
 
 		console.log(user);
 		const newUser = await axios.post(
-			'https://check-red-two.vercel.app/api/user'
+			'https://check-red-two.vercel.app/api/user',
+			user
 		);
 
 		if (newUser) {
