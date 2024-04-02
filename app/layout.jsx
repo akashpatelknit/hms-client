@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import AuthProvider from '@/providers/AuthProvider';
 import { ClerkProvider } from '@clerk/nextjs';
+import StoreProvider from './storeProvider';
+import { Toaster } from 'sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -14,7 +16,12 @@ export default function RootLayout({ children }) {
 		<ClerkProvider>
 			<html lang="en">
 				{/* <AuthProvider> */}
-					<body className={inter.className}>{children}</body>
+				<StoreProvider>
+					<body className={inter.className}>
+						{children}
+						<Toaster position="top-center" />
+					</body>
+				</StoreProvider>
 				{/* </AuthProvider> */}
 			</html>
 		</ClerkProvider>

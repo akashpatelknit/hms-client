@@ -23,12 +23,11 @@ export const POST = async (NextRequest) => {
 		console.log(data.data);
 
 		const tokenData = {
-			username: data.data.user.userName,
-			id: data.data.user.id,
+			data: data.data.user,
 		};
 		console.log(tokenData);
-		const token = jwt.sign(tokenData, '3543fdfere5435rer4', {
-			expiresIn: '1d',
+		const token = jwt.sign(tokenData, process.env.NEXT_PUBLIC_JWT_SECRET, {
+			expiresIn: '10d',
 		});
 		console.log(token);
 		const response = NextResponse.json({
@@ -37,7 +36,7 @@ export const POST = async (NextRequest) => {
 			token,
 		});
 
-		response.cookies.set('token', token, { httpOnly: true });
+		response.cookies.set('hmstoken', token, { httpOnly: true });
 		return response;
 	} catch (error) {
 		console.log('Error', error.message);

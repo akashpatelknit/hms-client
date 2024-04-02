@@ -10,29 +10,34 @@ export default function Features() {
 			subtitle:
 				'Efficiently allocates rooms based on preferences and availability.',
 			color: '#FFAEC0',
+			link: '/features/room-allotment',
 		},
 		{
 			title: 'Complaint Management',
 			subtitle:
 				'Allows students to lodge complaints for prompt resolution.',
 			color: '#FFDF99',
+			link: '/complaint',
 		},
 		{
 			title: 'User Profile',
 			subtitle:
 				'Enables creation of personalized profiles for better communication.',
 			color: '#C5C5FC',
+			link: '/profile',
 		},
 		{
 			title: 'Library Table Booking',
 			subtitle:
 				'Provides instant notifications on room allotments and complaints.',
 			color: '##FFDF99',
+			link: '/library',
 		},
 		{
 			title: 'Feedback Mechanism',
 			subtitle: 'Collects feedback from students to improve services.',
 			color: '#FFAEC0',
+			link: '/feedback',
 		},
 	];
 
@@ -55,6 +60,7 @@ export default function Features() {
 						title={feature.title}
 						subtitle={feature.subtitle}
 						color={feature.color}
+						link={feature.link}
 					/>
 				))}
 			</div>

@@ -7,7 +7,7 @@ export const getUser = async () => {
 	return response.data;
 };
 
-export const getComplaints = async () => {
-	const response = await axios.get(`${url}/complaint/user`);
+export const getComplaints = async (id) => {
+	const response = await axios.get(`${url}/complaint/user/${id}`);
 	return response.data;
 };

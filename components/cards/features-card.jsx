@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 import { MoveRight, RemoveFormattingIcon } from 'lucide-react';
 
-const FeatureCard = ({ title, subtitle, color }) => {
+const FeatureCard = ({ title, subtitle, color, link }) => {
 	return (
 		<div
 			className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl border-l-8 border-1 border-[#FFDF99]"
@@ -26,7 +26,7 @@ const FeatureCard = ({ title, subtitle, color }) => {
 				</p>
 			</div>
 			<div className="p-6 pt-0">
-				<Link href="/complaint" className="">
+				<Link href={link} className="">
 					<MoveRight size={24} />
 				</Link>
 			</div>

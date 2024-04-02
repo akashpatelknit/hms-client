@@ -11,50 +11,45 @@ import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Payment from './_components/payment';
+import ImageUpload from '@/components/imageUpload';
 
 const Profile = () => {
-	// const userClerk = await currentUser();
-	const userClerk = {
-		userId: 1,
-		fullname: 'Rama',
-		email: '',
-	};
-	useEffect(() => {});
-	// console.log(userClerk.username);
+	const { user } = useSelector((state) => state.user);
 	return (
 		<div className=" min-h-screen max-w-7xl mx-auto py-10 w-full px-5 md:px-10">
 			<div className=" flex flex-col md:flex-row gap-10 w-full">
 				<Card className="p-5">
-					<div className=" flex flex-col justify-center min-w-xl items-center">
-						{/* <Image
-							src={userClerk?.imageUrl}
+					<div className=" flex flex-col justify-center min-w-xl items-center relative">
+						<Image
+							src={user?.avatar}
 							alt="profile"
 							width="200"
 							height="200"
-							className=" rounded-full aspect-square"
-						/> */}
-						{/* <UserButton /> */}
-						<div className=" flex items-center justify-center">
-							{/* <h1>
-								{userClerk?.firstName} {userClerk.lastName}
-							</h1> */}
+							className=" rounded-full aspect-square relative overflow-hidden"
+						/>
+
+						<div className=" ">
+							<ImageUpload
+								onChange={() => console.log('')}
+								onRemove={() => console.log('')}
+							/>
 						</div>
-						<Link
-							href={`/updateUser/`}
-							className={cn(buttonVariants(), 'fit-content mt-5')}
-						>
-							Update Profile
-						</Link>
+						<div className=" flex items-center justify-center mt-2">
+							<h1>{user?.fullName}</h1>
+						</div>
 					</div>
 				</Card>
 				<div className=" w-full flex flex-col gap-3">
-					{/* <PersonalInfo user={userClerk} /> */}
+					<PersonalInfo user={user} />
 					<Hostel />
-					{/* <Academics user={user} /> */}
-					{/* <PaymentInfo user={user} /> */}
+					<Academics user={user} />
+					<PaymentInfo user={user} />
 				</div>
 			</div>
+			<Payment />
 		</div>
 	);
 };

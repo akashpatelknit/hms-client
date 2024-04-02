@@ -13,32 +13,115 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import axios from 'axios';
+import { Eye, EyeOffIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-export function LoginForm() {
+export function RegisterForm() {
 	const [formData, setFormData] = useState({
+		userName: '',
+		fullName: '',
+		phone: '',
 		email: '',
 		password: '',
+		cpassword: '',
 	});
-	const loginHandler = async () => {
+	const [showPassword, setShowPassword] = useState(false);
+	const [showCPassword, setShowCPassword] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const { push } = useRouter();
+	const togglePassword = () => {
+		setShowPassword(!showPassword);
+	};
+	const toggleCPassword = () => {
+		setShowCPassword(!showCPassword);
+	};
+
+	const registerHandler = async () => {
 		console.log('formData', formData);
+		setLoading(true);
 		try {
-			const user = await axios.post('/api/auth/login', formData);
+			const user = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+				formData
+			);
+			toast.success('User registered successfully');
+			push('/login');
 			console.log(user);
 		} catch (error) {
-			console.log('Error', error.message);
+			if (error.response) {
+				toast.error(error.response.data.message);
+			} else {
+				console.error('Error:', error);
+				toast.error('An unexpected error occurred.');
+			}
+		} finally {
+			setLoading(false);
+			setFormData({
+				userName: '',
+				fullName: '',
+				phone: '',
+				email: '',
+				password: '',
+				cpassword: '',
+			});
 		}
 	};
 	return (
 		<div className=" min-h-screen flex items-center justify-center">
-			<Card className="mx-auto max-w-sm">
+			<Card className="mx-auto w-full md:max-w-md">
 				<CardHeader>
-					<CardTitle className="text-2xl">Login</CardTitle>
-					<CardDescription>
-						Enter your email below to login to your account
-					</CardDescription>
+					<CardTitle className="text-2xl">Register</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div className="grid gap-4">
+						<div className=" flex gap-5 flex-col md:flex-row w-full">
+							<div className="grid gap-2">
+								<Label htmlFor="email">Username</Label>
+								<Input
+									id="fullName"
+									type="text"
+									placeholder="John Doe"
+									required
+									onChange={(e) =>
+										setFormData({
+											...formData,
+											userName: e.target.value,
+										})
+									}
+								/>
+							</div>
+							<div className="grid gap-2">
+								<Label htmlFor="phone">Phone Number</Label>
+								<Input
+									id="phone"
+									type="text"
+									placeholder="08012345678"
+									required
+									onChange={(e) =>
+										setFormData({
+											...formData,
+											phone: e.target.value,
+										})
+									}
+								/>
+							</div>
+						</div>
+						<div className="grid gap-2">
+							<Label htmlFor="fullName">Full Name</Label>
+							<Input
+								id="fullName"
+								type="text"
+								placeholder="John Doe"
+								required
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										fullName: e.target.value,
+									})
+								}
+							/>
+						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="email">Email</Label>
 							<Input
@@ -55,39 +138,74 @@ export function LoginForm() {
 							/>
 						</div>
 						<div className="grid gap-2">
-							<div className="flex items-center">
-								<Label htmlFor="password">Password</Label>
-								<Link
-									href="#"
-									className="ml-auto inline-block text-sm underline"
-								>
-									Forgot your password?
-								</Link>
+							<Label htmlFor="password">Password</Label>
+							<div className=" flex relative">
+								<Input
+									id="password"
+									type={showPassword ? 'text' : 'password'}
+									required
+									onChange={(e) =>
+										setFormData({
+											...formData,
+											password: e.target.value,
+										})
+									}
+									className="relative w-full"
+								/>
+								{showPassword ? (
+									<EyeOffIcon
+										className="absolute right-2 top-2 cursor-pointer"
+										onClick={togglePassword}
+									/>
+								) : (
+									<Eye
+										className=" right-2 top-2 absolute cursor-pointer"
+										onClick={togglePassword}
+									/>
+								)}
 							</div>
-							<Input
-								id="password"
-								type="password"
-								required
-								onChange={(e) =>
-									setFormData({
-										...formData,
-										password: e.target.value,
-									})
-								}
-							/>
+						</div>
+						<div className="grid gap-2">
+							<Label htmlFor="password">Confirm Password</Label>
+							<div className=" flex relative">
+								<Input
+									id="cpassword"
+									type={showCPassword ? 'text' : 'password'}
+									required
+									onChange={(e) =>
+										setFormData({
+											...formData,
+											cpassword: e.target.value,
+										})
+									}
+									className="relative w-full"
+								/>
+								{showCPassword ? (
+									<EyeOffIcon
+										className="absolute right-2 top-2 cursor-pointer"
+										onClick={toggleCPassword}
+									/>
+								) : (
+									<Eye
+										className=" right-2 top-2 absolute cursor-pointer"
+										onClick={toggleCPassword}
+									/>
+								)}
+							</div>
 						</div>
 						<Button
 							type="submit"
 							className="w-full"
-							onClick={loginHandler}
+							onClick={registerHandler}
+							disabled={formData.password !== formData.cpassword}
 						>
-							Login
+							Sign up
 						</Button>
 					</div>
 					<div className="mt-4 text-center text-sm">
-						Don&apos;t have an account?{' '}
-						<Link href="#" className="underline">
-							Sign up
+						Already have an account?{' '}
+						<Link href="/login" className="underline">
+							Sign in
 						</Link>
 					</div>
 				</CardContent>
@@ -96,4 +214,4 @@ export function LoginForm() {
 	);
 }
 
-export default LoginForm;
+export default RegisterForm;

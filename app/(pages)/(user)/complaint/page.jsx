@@ -7,6 +7,15 @@ import {
 	CardFooter,
 	Card,
 } from '@/components/ui/card';
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -22,7 +31,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Container from '@/components/container';
 import useComplaints from '@/app/hooks/useComplaints';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,11 +44,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
-import { data } from 'autoprefixer';
-// import PersonalInfoForm from '../updateUser/_components/personal-info-form';
 import { Separator } from '@/components/ui/separator';
 import axios from 'axios';
-
+import { useSelector } from 'react-redux';
 const profileFormSchema = z.object({
 	userId: z.string(),
 	title: z
@@ -57,14 +64,27 @@ const profileFormSchema = z.object({
 });
 
 export default function Component() {
-	const [loading, complaints] = useComplaints();
+	const [workers, setWorkers] = useState([]);
+	const { user } = useSelector((state) => state.user);
+	const [loading, complaints] = useComplaints(user.id);
 
+	useEffect(() => {
+		(async () => {
+			axios
+				.get(`${process.env.NEXT_PUBLIC_API_URL}/workers`)
+				.then((response) => {
+					setWorkers(response.data.workers);
+				});
+		})();
+	}, []);
+	console.log('workers', workers);
 	const defaultValues = {
-		userId: '1',
+		userId: user.id,
 		title: '',
 		category: '',
 		description: '',
 	};
+
 	const form = useForm({
 		resolver: zodResolver(profileFormSchema),
 		defaultValues,
@@ -86,7 +106,7 @@ export default function Component() {
 	return (
 		<>
 			<Container>
-				<div className=" flex flex-col-reverse md:flex-row justify-between gap-10">
+				<div className=" flex flex-col md:flex-row justify-between gap-10">
 					<Card className="w-full">
 						<CardHeader>
 							<CardTitle>Create new complaint</CardTitle>
@@ -98,7 +118,7 @@ export default function Component() {
 							<Form {...form}>
 								<form onSubmit={form.handleSubmit(onSubmit)}>
 									<Separator />
-									<div className="mt-5 flex gap-5">
+									<div className="mt-5 flex md:flex-row flex-col gap-5">
 										<FormField
 											control={form.control}
 											name="title"
@@ -125,12 +145,39 @@ export default function Component() {
 													<FormLabel>
 														Category
 													</FormLabel>
-													<FormControl>
-														<Input
-															placeholder="Category..."
-															{...field}
-														/>
-													</FormControl>
+													<Select
+														onValueChange={
+															field.onChange
+														}
+														defaultValue={
+															field.value
+														}
+													>
+														<FormControl>
+															<SelectTrigger>
+																<SelectValue placeholder="Select a category" />
+															</SelectTrigger>
+														</FormControl>
+														<SelectContent>
+															{workers.map(
+																(worker) => (
+																	<SelectItem
+																		key={
+																			worker.role
+																		}
+																		value={
+																			worker.role
+																		}
+																	>
+																		{
+																			worker.role
+																		}
+																	</SelectItem>
+																)
+															)}
+														</SelectContent>
+													</Select>
+
 													<FormMessage />
 												</FormItem>
 											)}
@@ -168,41 +215,116 @@ export default function Component() {
 								<h1 className=" text-xl font-semibold">
 									Recent Complaint
 								</h1>
-								<Link
-									className="flex gap-1 flex-col bg-gray-50 p-3 rounded-lg"
-									href="#"
-								>
-									<div className=" font-medium text-xs">
-										Complaint ID: {complaints[0]?.id}
-									</div>
-									<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
-										Subject : {complaints[0]?.title}
-									</div>
-									<div className="text-xs">
-										Description :{' '}
-										{complaints[0]?.description}
-									</div>
-									<div className="text-sm">
-										Status :{' '}
-										{complaints[0]?.status === 'open'
-											? 'Open'
-											: 'Resolved'}
-									</div>
-									<div className="ml-auto flex gap-3">
-										<Badge
-											varient="ghost"
-											onClick={() =>
-												console.log('badge click')
-											}
-										>
-											View
-										</Badge>
+								<Dialog>
+									<DialogTrigger>
+										<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
+											<div className=" font-medium text-xs text-start">
+												Complaint ID:{' '}
+												{complaints[0]?.id}
+											</div>
+											<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
+												Subject : {complaints[0]?.title}
+											</div>
+											<div className="text-xs">
+												Description :{' '}
+												{complaints[0]?.description}
+											</div>
+											<div className="text-sm">
+												Status :{' '}
+												{complaints[0]?.status ===
+												'open'
+													? 'Open'
+													: 'Resolved'}
+											</div>
+											<div className="ml-auto flex gap-3">
+												<Badge
+													varient="ghost"
+													onClick={() =>
+														console.log(
+															'badge click'
+														)
+													}
+												>
+													View
+												</Badge>
 
-										<Badge className="bg-green-500">
-											Mark as Resolved
-										</Badge>
-									</div>
-								</Link>
+												<Badge className="bg-green-500">
+													Mark as Resolved
+												</Badge>
+											</div>
+										</div>
+									</DialogTrigger>
+									<DialogContent className=" px-5 w-[90%]">
+										<DialogHeader>
+											<DialogTitle>
+												Are you absolutely sure?
+											</DialogTitle>
+											<DialogDescription>
+												<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
+													<div className=" font-medium text-xs text-start">
+														Complaint ID:{' '}
+														{complaints[0]?.id}
+													</div>
+													<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
+														Subject :{' '}
+														{complaints[0]?.title}
+													</div>
+													<div className="text-xs">
+														Description :{' '}
+														{
+															complaints[0]
+																?.description
+														}
+													</div>
+													<div className="text-xs">
+														Complaint By :{' '}
+														{
+															complaints[0]
+																?.userName
+														}
+													</div>
+													<div className="text-xs">
+														Description :{' '}
+														{
+															complaints[0]
+																?.description
+														}
+													</div>
+													<div className="text-xs">
+														Description :{' '}
+														{
+															complaints[0]
+																?.description
+														}
+													</div>
+													<div className="text-sm">
+														Status :{' '}
+														{complaints[0]
+															?.status === 'open'
+															? 'Open'
+															: 'Resolved'}
+													</div>
+													<div className="ml-auto flex gap-3">
+														<Badge
+															varient="ghost"
+															onClick={() =>
+																console.log(
+																	'badge click'
+																)
+															}
+														>
+															View
+														</Badge>
+
+														<Badge className="bg-green-500">
+															Mark as Resolved
+														</Badge>
+													</div>
+												</div>
+											</DialogDescription>
+										</DialogHeader>
+									</DialogContent>
+								</Dialog>
 							</div>
 						</CardContent>
 					</Card>
@@ -219,6 +341,110 @@ export default function Component() {
 										className="grid gap-4"
 										key={complaint.id}
 									>
+										<Dialog>
+											<DialogTrigger>
+												<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
+													<div className=" font-medium text-xs">
+														<span className=" font-medium">
+															Complaint ID:
+														</span>{' '}
+														{complaint.id}
+													</div>
+													<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
+														<span className=" font-medium">
+															Subject :
+														</span>{' '}
+														{complaint.title}
+													</div>
+													<div className="text-xs">
+														<span className=" font-medium">
+															Description :
+														</span>{' '}
+														{complaint.description}
+													</div>
+													<div className="text-sm">
+														Status :{' '}
+														{complaint.status ===
+														'open' ? (
+															<Badge>Open</Badge>
+														) : (
+															<Badge>
+																Resolved
+															</Badge>
+														)}
+													</div>
+												</div>
+											</DialogTrigger>
+											<DialogContent className=" px-5 w-[90%]">
+												<DialogHeader>
+													<DialogTitle>
+														Are you absolutely sure?
+													</DialogTitle>
+													<DialogDescription>
+														<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
+															<div className=" font-medium text-xs text-start">
+																Complaint ID:{' '}
+																{complaint?.id}
+															</div>
+															<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
+																Subject :{' '}
+																{
+																	complaint?.title
+																}
+															</div>
+															<div className="text-xs">
+																Description :{' '}
+																{
+																	complaint?.description
+																}
+															</div>
+															<div className="text-xs">
+																Complaint By :
+																{
+																	complaint?.userName
+																}
+															</div>
+															<div className="text-xs">
+																Description :
+																{
+																	complaint?.description
+																}
+															</div>
+															<div className="text-xs">
+																Description :
+																{
+																	complaint?.description
+																}
+															</div>
+															<div className="text-sm">
+																Status :{' '}
+																{complaint?.status ===
+																'open'
+																	? 'Open'
+																	: 'Resolved'}
+															</div>
+															<div className="ml-auto flex gap-3">
+																<Badge
+																	varient="ghost"
+																	onClick={() =>
+																		console.log(
+																			'badge click'
+																		)
+																	}
+																>
+																	View
+																</Badge>
+
+																<Badge className="bg-green-500">
+																	Mark as
+																	Resolved
+																</Badge>
+															</div>
+														</div>
+													</DialogDescription>
+												</DialogHeader>
+											</DialogContent>
+										</Dialog>
 										<Link
 											className="flex gap-1 flex-col bg-gray-50 p-3 rounded-lg"
 											href="#"

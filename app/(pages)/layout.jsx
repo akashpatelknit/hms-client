@@ -4,9 +4,9 @@ import Navbar from '@/components/navbar';
 const ProtectedLayout = ({ children }) => {
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
 			<main className="">{children}</main>
-			<Footer />
+			{/* <Footer /> */}
 		</>
 	);
 };

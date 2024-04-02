@@ -11,6 +11,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export function LoginForm() {
@@ -18,6 +20,7 @@ export function LoginForm() {
 		email: '',
 		password: '',
 	});
+	const { push } = useRouter();
 	console.log('formData', formData);
 	const [loading, setLoading] = useState(false);
 	const loginHandler = async () => {
@@ -26,6 +29,7 @@ export function LoginForm() {
 		try {
 			const user = await axios.post('/api/auth/login', formData);
 			localStorage.setItem('user', JSON.stringify(user.data.user));
+			push('/');
 			console.log(user);
 		} catch (error) {
 			console.log('Error', error.message);
@@ -88,6 +92,12 @@ export function LoginForm() {
 						Sign in
 					</Button>
 				</CardFooter>
+				<div className="mt-0 mb-4 text-center text-sm">
+					Don&apos;t have an account?{' '}
+					<Link href="/register" className="underline">
+						Sign in
+					</Link>
+				</div>
 			</Card>
 		</div>
 	);
