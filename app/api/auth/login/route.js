@@ -5,10 +5,10 @@ import axios from 'axios';
 export const POST = async (NextRequest) => {
 	try {
 		const body = await NextRequest.json();
-		const { email, password } = body;
+		const { rollNo, password } = body;
 
-		if (!email || !password) {
-			return new Response('Username and Password is required', {
+		if (!rollNo || !password) {
+			return new Response('Roll Number and Password is required', {
 				status: 401,
 			});
 		}
@@ -16,7 +16,7 @@ export const POST = async (NextRequest) => {
 		const data = await axios.post(
 			`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
 			{
-				email,
+				rollNo,
 				password,
 			}
 		);

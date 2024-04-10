@@ -9,6 +9,15 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
@@ -19,12 +28,11 @@ import { toast } from 'sonner';
 
 export function RegisterForm() {
 	const [formData, setFormData] = useState({
-		userName: '',
-		fullName: '',
-		phone: '',
-		email: '',
+		rollNo: '',
 		password: '',
 		cpassword: '',
+		year: '',
+		phone: '',
 	});
 	const [showPassword, setShowPassword] = useState(false);
 	const [showCPassword, setShowCPassword] = useState(false);
@@ -58,12 +66,11 @@ export function RegisterForm() {
 		} finally {
 			setLoading(false);
 			setFormData({
-				userName: '',
-				fullName: '',
-				phone: '',
-				email: '',
+				rollNo: '',
 				password: '',
 				cpassword: '',
+				phone: '',
+				year: '',
 			});
 		}
 	};
@@ -76,7 +83,7 @@ export function RegisterForm() {
 				<CardContent>
 					<div className="grid gap-4">
 						<div className=" flex gap-5 flex-col md:flex-row w-full">
-							<div className="grid gap-2">
+							{/* <div className="grid gap-2">
 								<Label htmlFor="email">Username</Label>
 								<Input
 									id="fullName"
@@ -90,49 +97,70 @@ export function RegisterForm() {
 										})
 									}
 								/>
-							</div>
-							<div className="grid gap-2">
-								<Label htmlFor="phone">Phone Number</Label>
+							</div> */}
+							<div className="grid gap-2 w-full">
+								<Label htmlFor="phone">Roll Number</Label>
 								<Input
 									id="phone"
-									type="text"
-									placeholder="08012345678"
+									type="number"
+									placeholder="roll number"
 									required
+									value={formData.rollNo}
 									onChange={(e) =>
 										setFormData({
 											...formData,
-											phone: e.target.value,
+											rollNo: parseFloat(e.target.value),
 										})
 									}
 								/>
 							</div>
 						</div>
+
 						<div className="grid gap-2">
-							<Label htmlFor="fullName">Full Name</Label>
-							<Input
-								id="fullName"
-								type="text"
-								placeholder="John Doe"
-								required
-								onChange={(e) =>
+							<Label htmlFor="fullName">Select Your Year</Label>
+							<Select
+								onValueChange={(value) =>
 									setFormData({
 										...formData,
-										fullName: e.target.value,
+										year: value,
 									})
 								}
-							/>
+								value={formData.year}
+							>
+								<SelectTrigger className="w-full">
+									<SelectValue placeholder="Select Year" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Years</SelectLabel>
+										<SelectItem value="first">
+											First Year
+										</SelectItem>
+										<SelectItem value="second">
+											Second Year
+										</SelectItem>
+										<SelectItem value="third">
+											Third Year
+										</SelectItem>
+										<SelectItem value="final">
+											Final Year
+										</SelectItem>
+									</SelectGroup>
+								</SelectContent>
+							</Select>
 						</div>
 						<div className="grid gap-2">
-							<Label htmlFor="email">Email</Label>
+							<Label htmlFor="phone">Phone Number</Label>
 							<Input
-								id="email"
-								type="email"
-								placeholder="m@example.com"
+								id="phone"
+								type="phone"
+								placeholder="phone number"
 								required
+								value={formData.phone}
 								onChange={(e) =>
 									setFormData({
 										...formData,
-										email: e.target.value,
+										phone: e.target.value,
 									})
 								}
 							/>
@@ -144,6 +172,7 @@ export function RegisterForm() {
 									id="password"
 									type={showPassword ? 'text' : 'password'}
 									required
+									value={formData.password}
 									onChange={(e) =>
 										setFormData({
 											...formData,
@@ -172,6 +201,7 @@ export function RegisterForm() {
 									id="cpassword"
 									type={showCPassword ? 'text' : 'password'}
 									required
+									value={formData.cpassword}
 									onChange={(e) =>
 										setFormData({
 											...formData,

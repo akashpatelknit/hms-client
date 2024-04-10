@@ -74,7 +74,7 @@ export function AcademicInfoForm() {
 				</DialogHeader>
 				<div className="grid gap-4 py-4 w-full">
 					{/* <div className=" flex gap-3 flex-col md:flex-row"> */}
-						<div className="grid grid-cols-4 items-center gap-4">
+						{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label
 								htmlFor="fullName"
 								className=" text-xs -mb-2"
@@ -93,8 +93,8 @@ export function AcademicInfoForm() {
 								}
 								disabled={loading}
 							/>
-						</div>
-						<div className="grid grid-cols-4 items-center gap-4">
+						</div> */}
+						{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="email" className=" text-xs -mb-2">
 								Email
 							</Label>
@@ -110,7 +110,7 @@ export function AcademicInfoForm() {
 								}
 								disabled={loading}
 							/>
-						</div>
+						</div> */}
 					{/* </div> */}
 					<div className=" flex gap-3 flex-col md:flex-row">
 						<div className="grid grid-cols-4 items-center gap-4">
@@ -130,7 +130,7 @@ export function AcademicInfoForm() {
 								disabled={loading}
 							/>
 						</div>
-						<div className="grid grid-cols-4 items-center gap-4">
+						{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="rollno" className=" text-xs -mb-2">
 								Year
 							</Label>
@@ -158,10 +158,10 @@ export function AcademicInfoForm() {
 									</SelectItem>
 								</SelectContent>
 							</Select>
-						</div>
+						</div> */}
 					</div>
 					<div className=" flex gap-3 flex-col md:flex-row">
-						<div className="grid grid-cols-4 items-center gap-4">
+						{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="rollno" className=" text-xs -mb-2 w-full">
 								Roll.Number
 							</Label>
@@ -177,8 +177,8 @@ export function AcademicInfoForm() {
 								}
 								disabled={loading}
 							/>
-						</div>
-						<div className="grid grid-cols-4 items-center gap-4">
+						</div> */}
+						{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="cgpa" className=" text-xs -mb-2">
 								CGPA
 							</Label>
@@ -197,10 +197,10 @@ export function AcademicInfoForm() {
 								}
 								disabled={loading}
 							/>
-						</div>
+						</div> */}
 					</div>
 
-					<div className="grid grid-cols-4 items-center gap-4 w-full">
+					{/* <div className="grid grid-cols-4 items-center gap-4 w-full">
 						<Label htmlFor="rollno" className=" text-xs -mb-2">
 							Branch
 						</Label>
@@ -234,7 +234,7 @@ export function AcademicInfoForm() {
 								</SelectItem>
 							</SelectContent>
 						</Select>
-					</div>
+					</div> */}
 				</div>
 				<DialogFooter>
 					<Button onClick={updateAcademics}>Save changes</Button>

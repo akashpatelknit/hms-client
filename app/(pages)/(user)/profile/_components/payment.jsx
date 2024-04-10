@@ -18,13 +18,13 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 
-function Payment({ type, due }) {
-	const [name, setName] = useState('Akash Patel');
-	const [email, setEmail] = useState('akashpatel20606@gmail.com');
+function Payment({ type, due, user }) {
+	const [name, setName] = useState(user?.fullName);
+	const [email, setEmail] = useState(user?.email);
 	const [amount, setAmount] = useState(due);
 	const [currency, setCurrency] = useState('INR');
 	const [loading, setLoading] = useState(false);
-	const { user } = useSelector((state) => state.user);
+	// const { user } = useSelector((state) => state.user);
 	const createOrderId = async () => {
 		try {
 			const response = await axios.post(
@@ -126,9 +126,9 @@ function Payment({ type, due }) {
 			{/* <section className=" flex flex-col gap-6 h-14 mx-5 sm:mx-10 2xl:mx-auto 2xl:w-[1400px] items-center pt-36 "> */}
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button variant="outline">{
-						type === 'hostel' ? 'Pay Hostel Fee' : 'Pay Mess Fee'
-					}</Button>
+					<Button variant="outline">
+						{type === 'hostel' ? 'Pay Hostel Fee' : 'Pay Mess Fee'}
+					</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[425px]">
 					<DialogHeader>

@@ -49,7 +49,6 @@ const Profile = () => {
 					<PaymentInfo user={user} />
 				</div>
 			</div>
-			<Payment />
 		</div>
 	);
 };

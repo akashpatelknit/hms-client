@@ -15,12 +15,11 @@ const ProtectedLayout = ({ children }) => {
 	useEffect(() => {
 		(async () => {
 			const { user, error, fetchedUser } = await getUser();
-			// console.log('user', user, error);
 			setIsSuccess(true);
-			if (error) {
-				push('/login');
-				return;
-			}
+			// if (error) {
+			// 	push('/login');
+			// 	return;
+			// }
 			if (fetchedUser) {
 				console.log('fetchedUser', fetchedUser);
 				dispatch(setUser(fetchedUser));

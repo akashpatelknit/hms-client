@@ -17,7 +17,7 @@ import { useState } from 'react';
 
 export function LoginForm() {
 	const [formData, setFormData] = useState({
-		email: '',
+		rollNo: '',
 		password: '',
 	});
 	const { push } = useRouter();
@@ -36,7 +36,7 @@ export function LoginForm() {
 		} finally {
 			setLoading(false);
 			setFormData({
-				email: '',
+				rollNo: '',
 				password: '',
 			});
 		}
@@ -52,17 +52,18 @@ export function LoginForm() {
 				</CardHeader>
 				<CardContent className="grid gap-4">
 					<div className="grid gap-2">
-						<Label htmlFor="email">Email</Label>
+						<Label htmlFor="email">Roll Number</Label>
 						<Input
-							id="email"
-							type="email"
-							placeholder="m@example.com"
+							id="rollNo"
+							type="number"
+							placeholder="roll number"
 							required
+							value={formData.rollNo}
 							disabled={loading}
 							onChange={(e) =>
 								setFormData({
 									...formData,
-									email: e.target.value,
+									rollNo: parseFloat(e.target.value),
 								})
 							}
 						/>
@@ -73,6 +74,7 @@ export function LoginForm() {
 							id="password"
 							type="password"
 							required
+							value={formData.password}
 							disabled={loading}
 							onChange={(e) =>
 								setFormData({
