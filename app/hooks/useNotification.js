@@ -9,7 +9,7 @@ const useNotification = () => {
 			setLoading(true);
 			try {
 				const fetchedNotification = await getNotification();
-				fetchedNotification.splice(0, 5);
+				fetchedNotification.splice(5);
 				setNotification(fetchedNotification);
 			} catch (error) {
 				console.error('Error fetching notification:', error);
