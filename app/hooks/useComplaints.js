@@ -19,7 +19,7 @@ const useComplaints = (id) => {
 		};
 		fetchData();
 	}, []);
-	return [loading, complaints];
+	return [complaints, loading];
 };
 
 export default useComplaints;

@@ -11,6 +11,7 @@ import NotificationCard from './cards/notification-card';
 import useNotification from '@/app/hooks/useNotification';
 import { Button } from './ui/button';
 import { BellIcon } from 'lucide-react';
+import Link from 'next/link';
 
 const textColor = 'gray.700';
 
@@ -32,14 +33,16 @@ const Notification = () => {
 							key={index}
 						>
 							<BellIcon className="h-10 w-10" />
-							<div className="space-y-1">
-								<p className="text-sm font-medium leading-none">
-									{user?.title}
-								</p>
-								<p className="text-sm text-muted-foreground">
-									{user?.description}
-								</p>
-							</div>
+							<Link href={user.file} target="_blank" download={true}>
+								<div className="space-y-1">
+									<p className="text-sm font-medium leading-none">
+										{user?.title}
+									</p>
+									<p className="text-sm text-muted-foreground">
+										{user?.description}
+									</p>
+								</div>
+							</Link>
 						</div>
 					))}
 				</CardContent>

@@ -66,7 +66,7 @@ const profileFormSchema = z.object({
 export default function Component() {
 	const [workers, setWorkers] = useState([]);
 	const { user } = useSelector((state) => state.user);
-	const [loading, complaints] = useComplaints(user.id);
+	const [complaints] = useComplaints(user.id);
 
 	useEffect(() => {
 		(async () => {
@@ -445,53 +445,6 @@ export default function Component() {
 												</DialogHeader>
 											</DialogContent>
 										</Dialog>
-										<Link
-											className="flex gap-1 flex-col bg-gray-50 p-3 rounded-lg"
-											href="#"
-										>
-											<div className=" font-medium text-xs">
-												<span className=" font-medium">
-													Complaint ID:
-												</span>{' '}
-												{complaint.id}
-											</div>
-											<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
-												<span className=" font-medium">
-													Subject :
-												</span>{' '}
-												{complaint.title}
-											</div>
-											<div className="text-xs">
-												<span className=" font-medium">
-													Description :
-												</span>{' '}
-												{complaint.description}
-											</div>
-											<div className="text-sm">
-												Status :{' '}
-												{complaint.status === 'open' ? (
-													<Badge>Open</Badge>
-												) : (
-													<Badge>Resolved</Badge>
-												)}
-											</div>
-											<div className="ml-auto flex gap-3">
-												<Badge
-													varient="ghost"
-													onClick={() =>
-														console.log(
-															'badge click'
-														)
-													}
-												>
-													View
-												</Badge>
-
-												<Badge className="bg-green-500">
-													Mark as Resolved
-												</Badge>
-											</div>
-										</Link>
 									</div>
 								))}
 							</CardContent>
