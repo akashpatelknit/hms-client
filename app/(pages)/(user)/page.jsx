@@ -16,7 +16,7 @@ export default function Home() {
 							Hostel Happenings Newsfeed: Stay Connected!
 						</h2>
 						<p className="mt-4 text-gray-600 text-md">
-							Stay Engaged with Our Hostel's Ongoing Events and Updates
+							Stay Engaged with Our Hostels Ongoing Events and Updates
 						</p>
 					</div>
 					<div className=" flex flex-col px-2 md:px-2 md:flex-row max-w-7xl mx-auto pt-10 pb-10 md:pt-10 gap-5 md:gap-10">

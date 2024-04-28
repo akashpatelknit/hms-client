@@ -23,7 +23,7 @@ const Team = () => {
 								</h1> */}
 
 								<p class="text-gray-700 text-lg font-light">
-									Meet the skilled team behind our website's seamless functionality, crafting solutions with expertise and dedication
+									Meet the skilled team behind our websites seamless functionality, crafting solutions with expertise and dedication
 								</p>
 							</div>
 						</div>
@@ -36,6 +36,7 @@ const Team = () => {
 											src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?fit=clamp&w=400&h=400&q=80"
 											height={200}
 											width={200}
+											alt=''
 										/>
 									</a>
 
