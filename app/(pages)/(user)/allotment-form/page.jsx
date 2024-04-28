@@ -91,8 +91,8 @@ const AcademicInfoForm = () => {
 						<SelectContent>
 							<SelectGroup>
 								<SelectLabel>Hostels Prefrences</SelectLabel>
-								{filterHostels.map((hostel) => (
-									<SelectItem value={hostel.name}>
+								{filterHostels.map((hostel, I) => (
+									<SelectItem value={hostel.name} key={I}>
 										{hostel.name}
 									</SelectItem>
 								))}
@@ -117,8 +117,8 @@ const AcademicInfoForm = () => {
 						<SelectContent>
 							<SelectGroup>
 								<SelectLabel>Years</SelectLabel>
-								{filterHostels.map((hostel) => (
-									<SelectItem value={hostel.name}>
+								{filterHostels.map((hostel, I) => (
+									<SelectItem value={hostel.name} key={I}>
 										{hostel.name}
 									</SelectItem>
 								))}
@@ -143,8 +143,8 @@ const AcademicInfoForm = () => {
 						<SelectContent>
 							<SelectGroup>
 								<SelectLabel>Years</SelectLabel>
-								{filterHostels.map((hostel) => (
-									<SelectItem value={hostel.name}>
+								{filterHostels.map((hostel, I) => (
+									<SelectItem value={hostel.name} key={I}>
 										{hostel.name}
 									</SelectItem>
 								))}
