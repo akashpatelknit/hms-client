@@ -15,14 +15,7 @@ export function CarouselPlugin() {
 								Your Convenient Hostel Allocation Platform
 							</h2>
 							<p className="mt-4 text-gray-600 text-lg">
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Sed quis eros at lacus feugiat
-								hendrerit sed ut tortor. Suspendisse et magna
-								quis elit efficitur consequat. Mauris eleifend
-								velit a pretium iaculis. Donec sagittis velit et
-								magna euismod, vel aliquet nulla malesuada. Nunc
-								pharetra massa lectus, a fermentum arcu volutpat
-								vel.
+							Streamline your hostel experience with our comprehensive management system. Seamlessly manage room allotment, effortlessly handle fee payments, and ensure prompt resolution of complaints. Simplify your stay, from booking to departure, with our user-friendly interface designed to enhance your hostel experience.
 							</p>
 							<div className="mt-8">
 								<a
