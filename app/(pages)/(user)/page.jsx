@@ -13,12 +13,10 @@ export default function Home() {
 				<Container>
 					<div className=" mt-10">
 						<h2 className="text-2xl font-semibold text-gray-900 sm:text-4xl ">
-							Your Convenient Hostel Allocation Platform
+							Hostel Happenings Newsfeed: Stay Connected!
 						</h2>
 						<p className="mt-4 text-gray-600 text-md">
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Sed quis eros at lacus feugiat hendrerit sed
-							ut tortor. Suspendisse
+							Stay Engaged with Our Hostel's Ongoing Events and Updates
 						</p>
 					</div>
 					<div className=" flex flex-col px-2 md:px-2 md:flex-row max-w-7xl mx-auto pt-10 pb-10 md:pt-10 gap-5 md:gap-10">
@@ -32,12 +30,10 @@ export default function Home() {
 				<Container>
 					<div className=" my-10 max-w-7xl mx-auto ">
 						<h2 className="text-2xl font-semibold text-gray-900 sm:text-4xl ">
-							Your Convenient Hostel Allocation Platform
+						Hostel Review & Find Your Stay
 						</h2>
 						<p className="mt-4 text-gray-600 text-md">
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit. Sed quis eros at lacus feugiat hendrerit sed
-							ut tortor. Suspendisse
+						Your Ultimate Guide to Hostel Living! Rate, Review, and Find Your Perfect Stay!
 						</p>
 					</div>
 				</Container>

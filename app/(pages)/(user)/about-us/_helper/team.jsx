@@ -18,14 +18,12 @@ const Team = () => {
 					<div class="container max-w-7xl px-4">
 						<div class="flex flex-wrap justify-center text-center mb-24">
 							<div class="w-full lg:w-6/12 px-4">
-								<h1 class="text-gray-900 text-4xl font-bold mb-8">
-									Meet the Team
-								</h1>
+								{/* <h1 class="text-gray-900 text-4xl font-bold mb-8">
+									Crew of Visionaries
+								</h1> */}
 
 								<p class="text-gray-700 text-lg font-light">
-									With over 100 years of combined experience,
-									we have got a well-seasoned team at the
-									helm.
+									Meet the skilled team behind our website's seamless functionality, crafting solutions with expertise and dedication
 								</p>
 							</div>
 						</div>
