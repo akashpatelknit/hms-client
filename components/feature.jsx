@@ -10,7 +10,7 @@ export default function Features() {
 			subtitle:
 				'Efficiently allocates rooms based on preferences and availability.',
 			color: '#FFAEC0',
-			link: '/features/room-allotment',
+			link: '/allotment-form',
 		},
 		{
 			title: 'Complaint Management',
@@ -27,11 +27,11 @@ export default function Features() {
 			link: '/profile',
 		},
 		{
-			title: 'Library Table Booking',
+			title: 'Hostel/Mess Fee Payment',
 			subtitle:
-				'Provides instant notifications on room allotments and complaints.',
+				'Facilitates online payment of hostel and mess fees for convenience.',
 			color: '##FFDF99',
-			link: '/library',
+			link: '/payment',
 		},
 		{
 			title: 'Feedback Mechanism',

@@ -19,6 +19,9 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import useGetIsAllotment from '@/app/hooks/useIsAllotmentOpen';
+import { Timer } from 'lucide-react';
+import { Separator } from './ui/separator';
 
 const navigation = [
 	{ name: 'Home', href: '/', current: true },
@@ -32,6 +35,8 @@ function classNames(...classes) {
 
 export default function Navbar() {
 	const { user } = useSelector((state) => state.user);
+	const { allotment } = useGetIsAllotment();
+	console.log('allotment', allotment[0]);
 	const disaptch = useDispatch();
 	const logOutHandler = () => {
 		axios.post('/api/auth/logout').then(() => disaptch(deleteUser()));
@@ -63,12 +68,23 @@ export default function Navbar() {
 								</Disclosure.Button>
 							</div>
 							<div className="flex  w-full items-center justify-between ">
-								<div className="flex flex-shrink-0 items-center">
-									<h1 className=" hidden md:flex">HMS</h1>
+								<div className="flex flex-shrink-0 items-center h-5">
+									<Image
+										src="/logo.png"
+										height={40}
+										width={40}
+									/>
+									<Separator
+										orientation="vertical"
+										className="w-[1.5px] h-[30px] bg-[#000] mx-2"
+									/>
+									<h1 className=" text-3xl font-semibold">
+										HMS
+									</h1>
 								</div>
 								{/* Desktop Nav */}
 								<div className="hidden sm:ml-6 sm:block">
-									<div className="flex space-x-4">
+									<div className="flex space-x-4 items-center justify-center">
 										{navigation.map((item) => (
 											<Link
 												href={item.href}
@@ -78,6 +94,22 @@ export default function Navbar() {
 												{item.name}
 											</Link>
 										))}
+										{allotment &&
+											user &&
+											allotment[0]?.isAllotmentOpen && (
+												<Button
+													asChild
+													variant="outline"
+												>
+													<Link
+														href="/allotment-form"
+														className="font-medium  hover:text-gray-500 flex items-center justify-center gap-2"
+													>
+														Allotment
+														<Timer className="h-5 w-5" />
+													</Link>
+												</Button>
+											)}
 									</div>
 								</div>
 
@@ -99,7 +131,9 @@ export default function Navbar() {
 										<DropdownMenu>
 											<DropdownMenuTrigger>
 												<Avatar>
-													<AvatarImage src="https://github.com/shadcn.png" />
+													<AvatarImage
+														src={user?.avatar}
+													/>
 													<AvatarFallback>
 														CN
 													</AvatarFallback>

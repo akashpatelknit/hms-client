@@ -116,7 +116,7 @@ export function RegisterForm() {
 							</div>
 						</div>
 
-						<div className="grid gap-2">
+						{/* <div className="grid gap-2">
 							<Label htmlFor="fullName">Select Your Year</Label>
 							<Select
 								onValueChange={(value) =>
@@ -148,7 +148,7 @@ export function RegisterForm() {
 									</SelectGroup>
 								</SelectContent>
 							</Select>
-						</div>
+						</div> */}
 						<div className="grid gap-2">
 							<Label htmlFor="phone">Phone Number</Label>
 							<Input
@@ -223,11 +223,16 @@ export function RegisterForm() {
 								)}
 							</div>
 						</div>
+
 						<Button
 							type="submit"
 							className="w-full"
 							onClick={registerHandler}
-							disabled={formData.password !== formData.cpassword}
+							disabled={
+								formData.password !== formData.cpassword ||
+								formData.phone.length !== 10 ||
+								loading
+							}
 						>
 							Sign up
 						</Button>

@@ -47,6 +47,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { toast } from 'sonner';
 const profileFormSchema = z.object({
 	userId: z.string(),
 	title: z
@@ -65,8 +66,15 @@ const profileFormSchema = z.object({
 
 export default function Component() {
 	const [workers, setWorkers] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const { user } = useSelector((state) => state.user);
 	const [complaints] = useComplaints(user.id);
+	const [defaultValues, setDefaultValues] = useState({
+		userId: user.id,
+		title: '',
+		category: '',
+		description: '',
+	});
 
 	useEffect(() => {
 		(async () => {
@@ -77,13 +85,7 @@ export default function Component() {
 				});
 		})();
 	}, []);
-	console.log('workers', workers);
-	const defaultValues = {
-		userId: user.id,
-		title: '',
-		category: '',
-		description: '',
-	};
+	// console.log('workers', workers);
 
 	const form = useForm({
 		resolver: zodResolver(profileFormSchema),
@@ -92,17 +94,49 @@ export default function Component() {
 	});
 	async function onSubmit(data) {
 		console.log('data', data);
-
+		setLoading(true);
 		try {
 			const response = await axios.post(
 				`${process.env.NEXT_PUBLIC_API_URL}/complaint`,
 				data
 			);
+			toast.success('Complaint submitted successfully');
 			console.log('response', response.data);
 		} catch (error) {
-			console.log('Error in Uploading coomplaints', error.message);
+			console.log('Error in Uploading coomplaints');
+			if (error.response) {
+			} else {
+				toast.error('An unexpected error occurred.');
+			}
+		} finally {
+			setLoading(false);
+			form.reset();
+			setDefaultValues({
+				userId: user.id,
+				title: '',
+				category: '',
+				description: '',
+			});
 		}
 	}
+	console.log('complaints', complaints);
+	const handleMarkAsResolved = async (id) => {
+		try {
+			const response = await axios.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/complaint/user/${user.id}`,
+				{
+					complaintId: id,
+				}
+			);
+			toast.success('Complaint resolved successfully');
+		} catch (error) {
+			if (error.response) {
+				toast.error(error.response.data.message);
+			} else {
+				toast.error('An unexpected error occurred.');
+			}
+		}
+	};
 	return (
 		<>
 			<Container>
@@ -131,6 +165,7 @@ export default function Component() {
 														<Input
 															placeholder="Subject..."
 															{...field}
+															disabled={loading}
 														/>
 													</FormControl>
 													<FormMessage />
@@ -152,6 +187,7 @@ export default function Component() {
 														defaultValue={
 															field.value
 														}
+														disabled={loading}
 													>
 														<FormControl>
 															<SelectTrigger>
@@ -198,6 +234,7 @@ export default function Component() {
 														<Textarea
 															placeholder="Description..."
 															{...field}
+															disabled={loading}
 														/>
 													</FormControl>
 													<FormMessage />
@@ -206,126 +243,180 @@ export default function Component() {
 										/>
 									</div>
 									<div className="flex justify-end mt-5 w-full">
-										<Button type="submit">Submit</Button>
+										<Button
+											type="submit"
+											disabled={loading}
+										>
+											Submit
+										</Button>
 									</div>
 								</form>
 							</Form>
 							<Separator />
-							<div className="grid gap-4">
-								<h1 className=" text-xl font-semibold">
-									Recent Complaint
-								</h1>
-								<Dialog>
-									<DialogTrigger>
-										<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
-											<div className=" font-medium text-xs text-start">
-												Complaint ID:{' '}
-												{complaints[0]?.id}
-											</div>
-											<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
-												Subject : {complaints[0]?.title}
-											</div>
-											<div className="text-xs">
-												Description :{' '}
-												{complaints[0]?.description}
-											</div>
-											<div className="text-sm">
-												Status :{' '}
-												{complaints[0]?.status ===
-												'open'
-													? 'Open'
-													: 'Resolved'}
-											</div>
-											<div className="ml-auto flex gap-3">
-												<Badge
-													varient="ghost"
-													onClick={() =>
-														console.log(
-															'badge click'
-														)
-													}
-												>
-													View
-												</Badge>
-
-												<Badge className="bg-green-500">
-													Mark as Resolved
-												</Badge>
-											</div>
-										</div>
-									</DialogTrigger>
-									<DialogContent className=" px-5 w-[90%]">
-										<DialogHeader>
-											<DialogTitle>
-												Are you absolutely sure?
-											</DialogTitle>
-											<DialogDescription>
-												<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
-													<div className=" font-medium text-xs text-start">
-														Complaint ID:{' '}
-														{complaints[0]?.id}
-													</div>
-													<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
-														Subject :{' '}
-														{complaints[0]?.title}
-													</div>
-													<div className="text-xs">
-														Description :{' '}
-														{
+							{complaints[0] && (
+								<div className="grid gap-4">
+									<h1 className=" text-xl font-semibold">
+										Recent Complaint
+									</h1>
+									<Dialog>
+										<DialogTrigger>
+											<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg text-start">
+												<div className=" font-medium text-xs text-start">
+													Complaint ID:{' '}
+													{complaints[0]?.id}
+												</div>
+												<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
+													Subject :{' '}
+													{complaints[0]?.title}
+												</div>
+												<div className="text-xs">
+													Description :{' '}
+													{complaints[0]?.description}
+												</div>
+												<div className="text-sm">
+													Status :{' '}
+													<Badge
+														variant={
 															complaints[0]
-																?.description
+																.isResolved ===
+															false
+																? 'ghost'
+																: 'success'
 														}
-													</div>
-													<div className="text-xs">
-														Complaint By :{' '}
-														{
-															complaints[0]
-																?.userName
-														}
-													</div>
-													<div className="text-xs">
-														Description :{' '}
-														{
-															complaints[0]
-																?.description
-														}
-													</div>
-													<div className="text-xs">
-														Description :{' '}
-														{
-															complaints[0]
-																?.description
-														}
-													</div>
-													<div className="text-sm">
-														Status :{' '}
+													>
 														{complaints[0]
-															?.status === 'open'
+															?.isResolved ===
+														false
 															? 'Open'
 															: 'Resolved'}
-													</div>
-													<div className="ml-auto flex gap-3">
-														<Badge
-															varient="ghost"
-															onClick={() =>
-																console.log(
-																	'badge click'
-																)
-															}
-														>
-															View
-														</Badge>
-
-														<Badge className="bg-green-500">
-															Mark as Resolved
-														</Badge>
-													</div>
+													</Badge>
 												</div>
-											</DialogDescription>
-										</DialogHeader>
-									</DialogContent>
-								</Dialog>
-							</div>
+												<div className="ml-auto flex gap-3">
+													<Badge
+														varient="ghost"
+														onClick={() =>
+															console.log(
+																'badge click'
+															)
+														}
+													>
+														View
+													</Badge>
+												</div>
+											</div>
+										</DialogTrigger>
+										<DialogContent className=" px-5 w-[90%]">
+											<DialogHeader>
+												<DialogTitle>
+													Are you absolutely sure?
+												</DialogTitle>
+												<DialogDescription>
+													<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg text-start">
+														<div className=" font-medium text-xs text-start">
+															Complaint ID:{' '}
+															{complaints[0]?.id}
+														</div>
+														<div className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
+															Subject :{' '}
+															{
+																complaints[0]
+																	?.title
+															}
+														</div>
+														<div className="text-xs ">
+															Description :{' '}
+															{
+																complaints[0]
+																	?.description
+															}
+														</div>
+														<div className="text-xs">
+															Complaint By :{' '}
+															{
+																complaints[0]
+																	?.userName
+															}
+														</div>
+
+														<div className="text-xs">
+															Assigned To :
+															{
+																complaints[0]
+																	?.workerName
+															}
+														</div>
+														<div className="text-xs">
+															Phone No :
+															{
+																complaints[0]
+																	?.workerPhone
+															}
+														</div>
+														<div className="text-xs">
+															Category :
+															{
+																complaints[0]
+																	?.workerRole
+															}
+														</div>
+														<div className="text-sm">
+															Status :{' '}
+															<Badge
+																variant={
+																	complaints[0]
+																		?.isResolved ===
+																	false
+																		? 'ghost'
+																		: 'success'
+																}
+															>
+																{complaints[0]
+																	?.isResolved ===
+																false
+																	? 'Open'
+																	: 'Resolveddd'}
+															</Badge>
+														</div>
+														<div className="ml-auto flex gap-3">
+															<Badge
+																varient="ghost"
+																onClick={() =>
+																	console.log(
+																		'badge click'
+																	)
+																}
+															>
+																View
+															</Badge>
+
+															<Badge
+																className="bg-green-500 cursor-pointer"
+																onClick={() =>
+																	handleMarkAsResolved(
+																		complaints[0]
+																			?.id
+																	)
+																}
+																disabled={
+																	complaints[0]
+																		?.isResolved ===
+																	true
+																}
+															>
+																{complaints[0]
+																	?.isResolved ===
+																true
+																	? 'Resolved'
+																	: 'Mark as Resolved'}
+															</Badge>
+														</div>
+													</div>
+												</DialogDescription>
+											</DialogHeader>
+										</DialogContent>
+									</Dialog>
+								</div>
+							)}
 						</CardContent>
 					</Card>
 
@@ -335,7 +426,7 @@ export default function Component() {
 							<CardHeader>
 								<CardTitle>All complaints</CardTitle>
 							</CardHeader>
-							<CardContent className="flex flex-col-reverse gap-3 max-h-[80vh] overflow-y-scroll">
+							<CardContent className="flex flex-col gap-3 max-h-[80vh] overflow-y-scroll">
 								{complaints?.map((complaint) => (
 									<div
 										className="grid gap-4"
@@ -343,7 +434,7 @@ export default function Component() {
 									>
 										<Dialog>
 											<DialogTrigger>
-												<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg">
+												<div className="flex gap-1 flex-col items-start justify-start bg-gray-50 p-3 rounded-lg text-start">
 													<div className=" font-medium text-xs">
 														<span className=" font-medium">
 															Complaint ID:
@@ -364,14 +455,31 @@ export default function Component() {
 													</div>
 													<div className="text-sm">
 														Status :{' '}
-														{complaint.status ===
-														'open' ? (
-															<Badge>Open</Badge>
-														) : (
-															<Badge>
-																Resolved
-															</Badge>
-														)}
+														<Badge
+															variant={
+																complaint.isResolved ===
+																false
+																	? 'ghost'
+																	: 'success'
+															}
+														>
+															{complaint?.isResolved ===
+															false
+																? 'Open'
+																: 'Resolved'}
+														</Badge>
+													</div>
+													<div className="ml-auto flex gap-3">
+														<Badge
+															varient="ghost"
+															onClick={() =>
+																console.log(
+																	'badge click'
+																)
+															}
+														>
+															View
+														</Badge>
 													</div>
 												</div>
 											</DialogTrigger>
@@ -404,40 +512,59 @@ export default function Component() {
 																	complaint?.userName
 																}
 															</div>
+
 															<div className="text-xs">
-																Description :
+																Assigned To :
 																{
-																	complaint?.description
+																	complaint?.workerName
 																}
 															</div>
 															<div className="text-xs">
-																Description :
+																Phone No :
 																{
-																	complaint?.description
+																	complaint?.workerPhone
 																}
 															</div>
+															<div className="text-xs">
+																Category :
+																{
+																	complaint?.workerRole
+																}
+															</div>
+
 															<div className="text-sm">
 																Status :{' '}
-																{complaint?.status ===
-																'open'
-																	? 'Open'
-																	: 'Resolved'}
+																<Badge
+																	variant={
+																		complaint?.isResolved ===
+																		false
+																			? 'ghost'
+																			: 'success'
+																	}
+																>
+																	{complaint?.isResolved ===
+																	false
+																		? 'Open'
+																		: 'Resolveddd'}
+																</Badge>
 															</div>
 															<div className="ml-auto flex gap-3">
 																<Badge
-																	varient="ghost"
+																	className="bg-green-500 cursor-pointer"
 																	onClick={() =>
-																		console.log(
-																			'badge click'
+																		handleMarkAsResolved(
+																			complaint.id
 																		)
 																	}
+																	disabled={
+																		complaint.isResolved ===
+																		true
+																	}
 																>
-																	View
-																</Badge>
-
-																<Badge className="bg-green-500">
-																	Mark as
-																	Resolved
+																	{complaint.isResolved ===
+																	true
+																		? 'Resolved'
+																		: 'Mark as Resolved'}
 																</Badge>
 															</div>
 														</div>

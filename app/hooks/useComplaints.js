@@ -10,6 +10,7 @@ const useComplaints = (id) => {
 			setLoading(true);
 			try {
 				const fetchedNotification = await getComplaints(id);
+				 fetchedNotification.complaints.reverse();
 				setComplaints(fetchedNotification.complaints);
 			} catch (error) {
 				console.error('Error fetching notification:', error);

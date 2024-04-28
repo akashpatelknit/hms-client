@@ -2,12 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import InfiniteMovingCards from './ui/infinite-moving-cards';
+import useGetRating from '@/app/hooks/useGetRating';
 
 export function InfiniteMovingCardsDemo() {
+	const colors = ['#FFDF99', '#C5C5FC', '#FFAEC0', '#FFAEC0', '#FFAEC0'];
+	let { rating } = useGetRating();
+	if (rating) {
+		rating = rating.map((item) => {
+			return {
+				...item,
+				color: colors[Math.floor(Math.random() * colors.length)],
+			};
+		});
+	}
 	return (
 		<div className=" rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
 			<InfiniteMovingCards
-				items={testimonials}
+				hostels={rating}
 				direction="right"
 				speed="slow"
 			/>

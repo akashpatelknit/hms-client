@@ -25,10 +25,33 @@ const Academics = ({ user }) => {
 					<h1 className=" text-gray-500"> Roll Number : </h1>
 					<p className="">{user?.rollNo}</p>
 				</Card>
-				<Card className="flex items-center gap-3 p-2 ">
-					<h1 className=" text-gray-500"> Aggregate CGPA : </h1>
-					<p className="">{user?.cgpa}</p>
-				</Card>
+
+				{user && user.year <= 1 && (
+					<Card className="flex items-center gap-3 p-2">
+						<h1 className="text-gray-500">First Year CGPA/Rank:</h1>
+						<p>{user.first_cgpa}</p>
+					</Card>
+				)}
+				{user && user.year >= 2 && (
+					<Card className="flex items-center gap-3 p-2">
+						<h1 className="text-gray-500">Second Year CGPA:</h1>
+						<p>{user.second_cgpa}</p>
+					</Card>
+				)}
+
+				{user && user.year >= 3 && (
+					<Card className="flex items-center gap-3 p-2">
+						<h1 className="text-gray-500">Third Year CGPA:</h1>
+						<p>{user.third_cgpa}</p>
+					</Card>
+				)}
+
+				{user && user.year >= 4 && (
+					<Card className="flex items-center gap-3 p-2">
+						<h1 className="text-gray-500">Final Year CGPA:</h1>
+						<p>{user.final_cgpa}</p>
+					</Card>
+				)}
 			</div>
 		</Card>
 	);
