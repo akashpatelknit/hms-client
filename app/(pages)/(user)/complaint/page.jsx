@@ -101,6 +101,9 @@ export default function Component() {
 				data
 			);
 			toast.success('Complaint submitted successfully');
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
 			console.log('response', response.data);
 		} catch (error) {
 			console.log('Error in Uploading coomplaints');
@@ -128,7 +131,11 @@ export default function Component() {
 					complaintId: id,
 				}
 			);
+			window.location.reload();
 			toast.success('Complaint resolved successfully');
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
 		} catch (error) {
 			if (error.response) {
 				toast.error(error.response.data.message);

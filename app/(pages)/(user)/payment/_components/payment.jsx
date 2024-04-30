@@ -132,7 +132,7 @@ function PaymentFee({ type, due, user }) {
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[425px]">
 					<DialogHeader>
-						<DialogTitle>Edit Profile</DialogTitle>
+						<DialogTitle>{type==='hostel'?"Pay Hostel Fee"?"Pay Mess Fee"}</DialogTitle>
 						<DialogDescription>
 							Make changes to your profile information here. Click
 							save when you are done.
