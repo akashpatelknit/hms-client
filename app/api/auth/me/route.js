@@ -22,11 +22,11 @@ export async function GET(request) {
 
 	try {
 		const user = verify(value, secret);
+		// console.log('user', user);
 		const fetchedUser = await axios.get(
 			`${process.env.NEXT_PUBLIC_API_URL}/user/${user.data.id}`
 		);
 
-		// console.log('fetchedUser', fetchedUser.data);
 		const response = {
 			user,
 			fetchedUser: fetchedUser.data,

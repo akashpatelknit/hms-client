@@ -16,10 +16,7 @@ const ProtectedLayout = ({ children }) => {
 		(async () => {
 			const { user, error, fetchedUser } = await getUser();
 			setIsSuccess(true);
-			// if (error) {
-			// 	push('/login');
-			// 	return;
-			// }
+
 			if (fetchedUser) {
 				console.log('fetchedUser', fetchedUser);
 				dispatch(setUser(fetchedUser));
@@ -47,7 +44,6 @@ export default ProtectedLayout;
 async function getUser() {
 	try {
 		const { data } = await axios.get('/api/auth/me');
-		// console.log('data', data);
 		return {
 			user: data.user,
 			fetchedUser: data.fetchedUser,

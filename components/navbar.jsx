@@ -36,7 +36,7 @@ function classNames(...classes) {
 export default function Navbar() {
 	const { user } = useSelector((state) => state.user);
 	const { allotment } = useGetIsAllotment();
-	console.log('allotment', allotment[0]);
+	// console.log('allotment', allotment[0]);
 	const disaptch = useDispatch();
 	const logOutHandler = () => {
 		axios.post('/api/auth/logout').then(() => disaptch(deleteUser()));

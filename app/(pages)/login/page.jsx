@@ -14,6 +14,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export function LoginForm() {
 	const [formData, setFormData] = useState({
@@ -21,18 +22,23 @@ export function LoginForm() {
 		password: '',
 	});
 	const { push } = useRouter();
-	console.log('formData', formData);
+	// console.log('formData', formData);
 	const [loading, setLoading] = useState(false);
 	const loginHandler = async () => {
-		console.log('formData', formData);
+		// console.log('formData', formData);
 		setLoading(true);
 		try {
-			const user = await axios.post('/api/auth/login', formData);
-			localStorage.setItem('user', JSON.stringify(user.data.user));
+			const response = await axios.post('/api/auth/login', formData);
+			// localStorage.setItem('user', JSON.stringify(user.data.user));
+			console.log('user', response.status, response.data);
 			push('/');
-			console.log(user);
 		} catch (error) {
-			console.log('Error', error.message);
+			if (error.response.status === 401) {
+				toast.error('User not registered yet');
+			}
+			if (error.response.status === 402) {
+				toast.error('Please verify your email');
+			}
 		} finally {
 			setLoading(false);
 			setFormData({
@@ -41,6 +47,7 @@ export function LoginForm() {
 			});
 		}
 	};
+
 	return (
 		<div className=" min-h-screen flex items-center justify-center">
 			<Card className="w-full max-w-sm">
@@ -97,7 +104,7 @@ export function LoginForm() {
 				<div className="mt-0 mb-4 text-center text-sm">
 					Don&apos;t have an account?{' '}
 					<Link href="/register" className="underline">
-						Sign in
+						Sign Up
 					</Link>
 				</div>
 			</Card>

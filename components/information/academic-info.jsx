@@ -26,7 +26,7 @@ const Academics = ({ user }) => {
 					<p className="">{user?.rollNo}</p>
 				</Card>
 
-				{user && user.year <= 1 && (
+				{user && user.year >= 1 && (
 					<Card className="flex items-center gap-3 p-2">
 						<h1 className="text-gray-500">First Year CGPA/Rank:</h1>
 						<p>{user.first_cgpa}</p>

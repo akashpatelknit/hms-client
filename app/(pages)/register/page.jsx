@@ -50,7 +50,7 @@ export function RegisterForm() {
 		setLoading(true);
 		try {
 			const user = await axios.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+				`${process.env.NEXT_PUBLIC_API_URL}/auth/register_new`,
 				formData
 			);
 			toast.success('User registered successfully');

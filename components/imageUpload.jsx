@@ -59,7 +59,7 @@ const ImageUpload = ({ disabled, onChange }) => {
 							disabled={loading}
 							variant="outline"
 							type="button"
-                            className="flex items-center justify-center bg-none border-none"
+							className="flex items-center justify-center bg-none border-none"
 						>
 							<ImagePlus className=" w-4 h-4 mr-2" />
 						</Button>

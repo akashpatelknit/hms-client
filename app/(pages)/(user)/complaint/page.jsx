@@ -48,6 +48,8 @@ import { Separator } from '@/components/ui/separator';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
+import ImageUpload from '@/components/UploadThingImageUpload';
+import Image from 'next/image';
 const profileFormSchema = z.object({
 	userId: z.string(),
 	title: z
@@ -74,8 +76,9 @@ export default function Component() {
 		title: '',
 		category: '',
 		description: '',
+		imgByStudent: '',
 	});
-
+	console.log('defaultValues', defaultValues);
 	useEffect(() => {
 		(async () => {
 			axios
@@ -93,6 +96,7 @@ export default function Component() {
 		mode: 'onChange',
 	});
 	async function onSubmit(data) {
+		data.imgByStudent = defaultValues.imgByStudent;
 		console.log('data', data);
 		setLoading(true);
 		try {
@@ -249,6 +253,12 @@ export default function Component() {
 											)}
 										/>
 									</div>
+									<div className="mt-5 max-w-7xl mx-auto  w-full gap-5 ">
+										<ImageUpload
+											defaultValues={defaultValues}
+											setDefaultValues={setDefaultValues}
+										/>
+									</div>
 									<div className="flex justify-end mt-5 w-full">
 										<Button
 											type="submit"
@@ -260,7 +270,7 @@ export default function Component() {
 								</form>
 							</Form>
 							<Separator />
-							{complaints[0] && (
+							{/* {complaints[0] && (
 								<div className="grid gap-4">
 									<h1 className=" text-xl font-semibold">
 										Recent Complaint
@@ -423,7 +433,7 @@ export default function Component() {
 										</DialogContent>
 									</Dialog>
 								</div>
-							)}
+							)} */}
 						</CardContent>
 					</Card>
 
@@ -575,6 +585,42 @@ export default function Component() {
 																</Badge>
 															</div>
 														</div>
+														{complaint?.imgByStudent && (
+															<div className="my-5">
+																<p className="font-semibold ">
+																	Complaint
+																	Image by
+																	Student
+																</p>
+																<Image
+																	src={
+																		complaint?.imgByStudent
+																	}
+																	alt="complaint"
+																	className="w-full"
+																	width={1080}
+																	height={720}
+																/>
+															</div>
+														)}
+														{complaint?.imgByWorker && (
+															<div className="my-5">
+																<p className="font-semibold ">
+																	Complaint
+																	Image by
+																	Worker
+																</p>
+																<Image
+																	src={
+																		complaint?.imgByWorker
+																	}
+																	alt="complaint"
+																	className="w-full"
+																	width={1080}
+																	height={720}
+																/>
+															</div>
+														)}
 													</DialogDescription>
 												</DialogHeader>
 											</DialogContent>
