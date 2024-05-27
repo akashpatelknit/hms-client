@@ -137,10 +137,7 @@ function PaymentFee({ type, due, user }) {
 								? 'Pay Hostel Fee'
 								: 'Pay Mess Fee'}
 						</DialogTitle>
-						<DialogDescription>
-							Make changes to your profile information here. Click
-							save when you are done.
-						</DialogDescription>
+
 						<form
 							className="flex flex-col gap-6 w-full sm:w-80"
 							onSubmit={processPayment}

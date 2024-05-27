@@ -1,25 +1,43 @@
-import React from 'react';
-import './loader.css';
-import { Divide } from 'lucide-react';
+'use client';
+import { PuffLoader } from 'react-spinners';
+
 const Loader = () => {
 	return (
-		<div className=" flex items-center justify-center h-full w-full min-h-screen">
-			<div className="newtons-cradle flex items-center justify-center h-full w-full">
-				<div class="loader">
-					<div class="bar1"></div>
-					<div class="bar2"></div>
-					<div class="bar3"></div>
-					<div class="bar4"></div>
-					<div class="bar5"></div>
-					<div class="bar6"></div>
-					<div class="bar7"></div>
-					<div class="bar8"></div>
-					<div class="bar9"></div>
-					<div class="bar10"></div>
-					<div class="bar11"></div>
-					<div class="bar12"></div>
-				</div>
-			</div>
+		<div className="loader-container">
+			<div className="loader-overlay"></div>
+			<PuffLoader color="#ffffff" />
+			<style jsx>{`
+				.loader-container {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					z-index: 1000;
+				}
+
+				.loader-overlay {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background-color: rgba(
+						0,
+						0,
+						0,
+						0.5
+					); /* Semi-transparent background */
+					z-index: -1; /* Make sure the overlay is behind the loader */
+				}
+
+				.loader {
+					z-index: 1; /* Make sure the loader is above the overlay */
+				}
+			`}</style>
 		</div>
 	);
 };

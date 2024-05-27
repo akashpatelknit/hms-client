@@ -32,13 +32,7 @@ export function AcademicInfoForm() {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const [formData, setFormData] = useState({
-		fullName: user?.fullName || '',
-		email: user?.email || '',
-		phone: user?.phone || '',
-		branch: user?.branch || '',
-		year: user?.year || '',
-		rollNo: user?.rollNo || '',
-		cgpa: user?.cgpa || '',
+		phone: user.phone,
 	});
 	const [loading, setLoading] = useState(false);
 
@@ -74,7 +68,7 @@ export function AcademicInfoForm() {
 				</DialogHeader>
 				<div className="grid gap-4 py-4 w-full">
 					{/* <div className=" flex gap-3 flex-col md:flex-row"> */}
-						{/* <div className="grid grid-cols-4 items-center gap-4">
+					{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label
 								htmlFor="fullName"
 								className=" text-xs -mb-2"
@@ -94,7 +88,7 @@ export function AcademicInfoForm() {
 								disabled={loading}
 							/>
 						</div> */}
-						{/* <div className="grid grid-cols-4 items-center gap-4">
+					{/* <div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="email" className=" text-xs -mb-2">
 								Email
 							</Label>

@@ -68,7 +68,7 @@ export default function Navbar() {
 								</Disclosure.Button>
 							</div>
 							<div className="flex  w-full items-center justify-between ">
-								<div className="flex flex-shrink-0 items-center h-5">
+								<div className="flex flex-shrink-0 items-center h-5 ml-10 pl-3">
 									<Image
 										src="/logo.png"
 										height={40}
@@ -190,6 +190,25 @@ export default function Navbar() {
 									{item.name}
 								</Disclosure.Button>
 							))}
+
+							{allotment &&
+								user &&
+								allotment[0]?.isAllotmentOpen && (
+									<Disclosure.Button
+										as="a"
+										href="/allotment-form"
+										className={classNames(
+											true
+												? 'bg-gray-900 text-white flex items-center  gap-5'
+												: 'text-gray-300 hover:bg-gray-700 hover:text-white',
+											'block rounded-md px-3 py-2 text-base font-medium'
+										)}
+										aria-current={true ? 'page' : undefined}
+									>
+										Allotment
+										<Timer className="h-5 w-5" />
+									</Disclosure.Button>
+								)}
 						</div>
 					</Disclosure.Panel>
 				</>

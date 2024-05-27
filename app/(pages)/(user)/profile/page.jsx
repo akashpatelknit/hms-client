@@ -18,6 +18,7 @@ import ImageUpload from '@/components/imageUpload';
 
 const Profile = () => {
 	const { user } = useSelector((state) => state.user);
+	console.log('user', user);
 	return (
 		<div className=" min-h-screen max-w-7xl mx-auto py-10 w-full px-5 md:px-10">
 			<div className=" flex flex-col md:flex-row gap-10 w-full">

@@ -25,6 +25,8 @@ import axios from 'axios';
 import { Eye, EyeOffIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import Image from 'next/image';
+import { Separator } from '@/components/ui/separator';
 
 export function RegisterForm() {
 	const [formData, setFormData] = useState({
@@ -75,7 +77,15 @@ export function RegisterForm() {
 		}
 	};
 	return (
-		<div className=" min-h-screen flex items-center justify-center">
+		<div className=" min-h-screen flex items-center justify-center flex-col gap-5">
+			<div className="flex flex-shrink-0 items-center h-5 justify-center">
+				<Image src="/logo.png" height={40} width={40} />
+				<Separator
+					orientation="vertical"
+					className="w-[1.5px] h-[30px] bg-[#000] mx-2"
+				/>
+				<h1 className=" text-3xl font-semibold">HMS</h1>
+			</div>
 			<Card className="mx-auto w-full md:max-w-md">
 				<CardHeader>
 					<CardTitle className="text-2xl">Register</CardTitle>
