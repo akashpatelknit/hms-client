@@ -64,7 +64,7 @@ const Team = () => {
 						</div>
 						<div className="flex flex-wrap">
 							{team.map((item) => (
-								<div className="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4">
+								<div className="w-full md:w-6/12 lg:w-3/12 mb-6 px-6 sm:px-6 lg:px-4" key={item.id}>
 									<div className="flex flex-col">
 										<div className="mx-auto relative">
 											<Image
